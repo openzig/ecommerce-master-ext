@@ -1,0 +1,7 @@
+Django==1.7.1
+Pillow==2.5.0
+certifi==14.05.14
+django-localflavor==1.0
+pytz==2014.4
+requests==2.4.0
+stripe==1.19.0
