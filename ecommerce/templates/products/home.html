@@ -71,17 +71,17 @@ Welcome to
    <div class='col-sm-4'>
       <div class="thumbnail">
          {% if product.productimage_set.all %} 
-         {% for item in product.productimage_set.all %} 
-         {% if item.featured %}
-         <div style="width:200px;height:200px;margin:0 auto;">
-            <a href='{{ product.get_absolute_url }}'>
-               <div class='background_img_thumb' style="height:200px;background-image: url('{{ MEDIA_URL }}{{ item.image }}');">
-               </div>
-            </a>
-         </div>
-         <!-- <img class='img-responsive' src="{{ MEDIA_URL }}{{ item.image }}"/>--> 
-         {% endif %} 
-         {% endfor %} 
+	         {% for item in product.productimage_set.all %} 
+		         {% if item.featured %}
+		         <div style="width:200px;height:200px;margin:0 auto;">
+		            <a href='{{ product.get_absolute_url }}'>
+		               <div class='background_img_thumb' style="height:200px;background-image: url('{{ MEDIA_URL }}{{ item.image }}');">
+		               </div>
+		            </a>
+		         </div>
+		         <!-- <img class='img-responsive' src="{{ MEDIA_URL }}{{ item.image }}"/>--> 
+		         {% endif %} 
+	         {% endfor %} 
          {% else %}
          <img class='img-responsive' src='{% static "img/placeholder.svg" %}' />
          {% endif %}
@@ -99,8 +99,5 @@ Welcome to
 {% endblock %}
 
 {% block jquery %}
-var slider_count = len({{ sliders }});
-var curr_slider_index = 1;
-$(".carousel .left").click(function(){
-});
+
 {% endblock %}
