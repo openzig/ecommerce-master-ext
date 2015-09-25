@@ -2,13 +2,12 @@ from django.shortcuts import render, Http404
 
 # Create your views here.
 
-from marketing.forms import EmailForm
-from marketing.models import MarketingMessage, Slider
+# from marketing.forms import EmailForm
+from marketing.models import Slider
 
 
 from .models import Product, ProductImage
 
-from django.core import serializers
 from django.http import HttpResponse
 from django.conf import settings
 import json
@@ -67,10 +66,11 @@ def get_json(request, page):
 	for product in products:
 		result_item = {}
 		for item in product.productimage_set.all():
-			result_item['image'] = item.image.url;
-			result_item['height'] = 200
-			result_item['width'] = 200
-			break
+			if item.featured:
+				result_item['image'] = item.image.url;
+				scaled_height = 1.0 * item.image.height * settings.WATERFALL_IMAGE_FIXED_WIDTH / item.image.width
+				result_item['height'] = scaled_height
+				result_item['width'] = settings.WATERFALL_IMAGE_FIXED_WIDTH
 		if result_item.get('image') != None:
 			result.append(result_item)
 			cnt += 1
