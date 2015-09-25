@@ -200,13 +200,13 @@
          */
         _getColumns : function() {
             var options = this.options,
-                $container = options.fitWidth ?  this.$element.parent() : this.$element,
+                $container = this.$element,
                 containerWidth = $container[0].tagName === 'BODY' ? $container.width() - 20 : $container.width(),  // if $container[0].tagName === 'BODY', fix browser scrollbar
                 colWidth = options.colWidth,
                 gutterWidth = options.gutterWidth,
                 minCol = options.minCol,
                 maxCol = options.maxCol,
-                cols = Math.floor(containerWidth / (colWidth + gutterWidth)),
+                cols = Math.ceil(containerWidth / (colWidth + gutterWidth)),
                 col = Math.max(cols, minCol );
 
             /*if ( !maxCol ) {
@@ -273,7 +273,7 @@
 
             // fixMarginLeft
             if ( align === 'center' ) {
-                fixMarginLeft = (this.$element.width() - colWidth * len  - gutterWidth * (len - 1) ) /2;
+                fixMarginLeft = (this.$element.width() - colWidth * len  - gutterWidth * (len - 1) ) /2 + 15;  // TDO: ContainerPadding = 15
                 fixMarginLeft = fixMarginLeft > 0 ? fixMarginLeft : 0;
             } else if ( align === 'left' ) {
                 fixMarginLeft = 0;
