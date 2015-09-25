@@ -8,6 +8,10 @@ from marketing.models import MarketingMessage, Slider
 
 from .models import Product, ProductImage
 
+from django.core import serializers
+from django.http import HttpResponse
+from django.conf import settings
+import json
 
 def search(request):
 	try:
@@ -54,3 +58,24 @@ def single(request, slug):
 		return render(request, template, context)
 	except:
 		raise Http404
+
+def get_json(request, page):
+	products = Product.objects.all()
+	data = {}
+	result = []
+	cnt = 0
+	for product in products:
+		result_item = {}
+		for item in product.productimage_set.all():
+			result_item['image'] = item.image.url;
+			result_item['height'] = 200
+			result_item['width'] = 200
+			break
+		if result_item.get('image') != None:
+			result.append(result_item)
+			cnt += 1
+	data['result'] = result
+	data['total'] = cnt
+	return HttpResponse(json.dumps(data), content_type = "application/json")
+	
+	

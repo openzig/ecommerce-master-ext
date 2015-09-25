@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     url(r'^accounts/register/$', 'accounts.views.registration_view', name='auth_register'),
     url(r'^accounts/address/add/$', 'accounts.views.add_user_address', name='add_user_address'),
     url(r'^accounts/activate/(?P<activation_key>\w+)/$', 'accounts.views.activation_view', name='activation_view'),
+    
+    url(r'^json/products/page/(?P<page>\d+)/$', 'products.views.get_json', name='products_json'),
 ) 
 
 
