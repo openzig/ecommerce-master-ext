@@ -11,6 +11,7 @@ from .models import Product, ProductImage
 from django.http import HttpResponse
 from django.conf import settings
 import json
+import random
 
 def search(request):
 	try:
@@ -65,6 +66,10 @@ def get_json(request, page):
 	cnt = 0
 	for product in products:
 		result_item = {}
+		result_item['title'] = product.title
+		result_item['url'] = product.get_absolute_url()
+		result_item['price'] = str(product.price)
+		result_item['sales'] = str(random.randint(0, 1000))
 		for item in product.productimage_set.all():
 			if item.featured:
 				result_item['image'] = item.image.url;

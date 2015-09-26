@@ -206,7 +206,7 @@
                 gutterWidth = options.gutterWidth,
                 minCol = options.minCol,
                 maxCol = options.maxCol,
-                cols = Math.ceil(containerWidth / (colWidth + gutterWidth)),
+                cols = Math.floor(containerWidth / (colWidth + gutterWidth)),
                 col = Math.max(cols, minCol );
 
             /*if ( !maxCol ) {
@@ -273,7 +273,7 @@
 
             // fixMarginLeft
             if ( align === 'center' ) {
-                fixMarginLeft = (this.$element.width() - colWidth * len  - gutterWidth * (len - 1) ) /2 + 15;  // TDO: ContainerPadding = 15
+                fixMarginLeft = (this.$element.width() - colWidth * len  - gutterWidth * (len - 1) ) /2;
                 fixMarginLeft = fixMarginLeft > 0 ? fixMarginLeft : 0;
             } else if ( align === 'left' ) {
                 fixMarginLeft = 0;
