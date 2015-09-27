@@ -126,6 +126,7 @@
 	<div class="clearfix">
 	</div>
 </div>
+{% if sliders %}
 <div class="sub-cate">
 	<div class=" top-nav rsidebar span_1_of_left">
 		<h3 class="cate">
@@ -228,60 +229,15 @@
 			 -->
 			<li>
 				<ul class="kid-menu">
+					{% for category in categories %}
 					<li>
 						<a href="product.html">
-							Tempus pretium
+							{{category.title}}
 						</a>
 					</li>
-					<li>
-						<a href="product.html">
-							Dignissim neque
-						</a>
-					</li>
-					<li>
-						<a href="product.html">
-							Ornared id aliquet
-						</a>
-					</li>
+					{% endfor %}
 				</ul>
 			</li>
-			<ul class="kid-menu ">
-				<li>
-					<a href="product.html">
-						Commodo sit
-					</a>
-				</li>
-				<li>
-					<a href="product.html">
-						Urna ac tortor sc
-					</a>
-				</li>
-				<li>
-					<a href="product.html">
-						Ornared id aliquet
-					</a>
-				</li>
-				<li>
-					<a href="product.html">
-						Urna ac tortor sc
-					</a>
-				</li>
-				<li>
-					<a href="product.html">
-						Eget nisi laoreet
-					</a>
-				</li>
-				<li>
-					<a href="product.html">
-						Faciisis ornare
-					</a>
-				</li>
-				<li class="menu-kid-left">
-					<a href="contact.html">
-						Contact us
-					</a>
-				</li>
-			</ul>
 		</ul>
 	</div>
 	<!--initiate accordion-->
@@ -305,9 +261,9 @@
 		});
 	</script>
 </div>
+{% endif %}
 </div>
 {% endblock %}
-
 
 {% block script_body %}
 <script src="{% static "js/handlebars.js" %}"></script>

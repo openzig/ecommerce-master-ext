@@ -6,7 +6,7 @@ from django.shortcuts import render, Http404
 from marketing.models import Slider
 
 
-from .models import Product, ProductImage
+from .models import Product, ProductImage, Category
 
 from django.http import HttpResponse
 from django.conf import settings
@@ -33,10 +33,12 @@ def home(request):
 	sliders = Slider.objects.all()
 	print(sliders)
 	products = Product.objects.all()
+	categories = Category.objects.all()
 	template = 'products/home.html'	
 	context = {
 		"products": products,
 		"sliders": sliders,
+		"categories" : categories,
 		}
 	return render(request, template, context)
 
@@ -69,7 +71,7 @@ def get_json(request, page):
 		result_item['title'] = product.title
 		result_item['url'] = product.get_absolute_url()
 		result_item['price'] = str(product.price)
-		result_item['sales'] = str(random.randint(0, 1000))
+		result_item['sales'] = str(product.sales)
 		for item in product.productimage_set.all():
 			if item.featured:
 				result_item['image'] = item.image.url;

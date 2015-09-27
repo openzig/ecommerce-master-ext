@@ -28,6 +28,7 @@ class Product(models.Model):
 	price = models.DecimalField(decimal_places=2, max_digits=65, default=29.99)
 	sale_price = models.DecimalField(decimal_places=2, max_digits=65,\
 												null=True, blank=True)
+	sales = models.IntegerField(default=0)
 	slug = models.SlugField(unique=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
