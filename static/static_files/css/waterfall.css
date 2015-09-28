@@ -31,5 +31,52 @@
     filter: progid:DXImageTransform.Microsoft.Shadow(color = #979797, direction = 135, strength = 3);
 }
 
+/* custom style */
 
+.waterfall-container .title {
+	margin-top: 5px;
+	color:#666;
+}
+
+.waterfall-container .price {
+	color: #f36;
+	font-weight: bold;
+	font-size:16px;
+}
+
+.waterfall-container .sales {
+	float: right;
+	margin-top: 2px;
+}
+
+.waterfall-container .sales_icon {
+	background-image: url('{{MEDIA_URL}}icon/sales1.png');
+	background-size: 100% 100%;
+	width: 18px;
+	height: 18px;
+	margin-right: 3px;
+	float: left;
+}
+
+.wtfall-bar {
+	border-bottom: solid 1px #ccc;
+	margin-bottom: 13px;
+	padding-bottom: 42px;
+	height: 38px;
+	font-weight: bold;
+}
+
+.wtfall-bar .title {
+	font-size: 25px;
+	float: left;
+	margin-right:40px;
+	color: #333;
+}
+
+.wtfall-bar .viewall {
+	float: right;
+	padding-top: 10px;
+	text-decoration: none;
+	color: #888;
+}
 

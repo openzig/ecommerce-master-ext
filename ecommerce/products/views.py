@@ -31,22 +31,22 @@ def search(request):
 
 def home(request):
 	sliders = Slider.objects.all()
-	print(sliders)
-	products = Product.objects.all()
 	categories = Category.objects.all()
 	template = 'products/home.html'	
 	context = {
-		"products": products,
 		"sliders": sliders,
 		"categories" : categories,
+		"category_title" : "LATEST PRODUCTS"
 		}
 	return render(request, template, context)
 
 
-def all(request):
-	products = Product.objects.all()
-	context = {'products': products}
-	template = 'products/all.html'	
+def category(request, slug):
+	categories = Category.objects.all()
+	category = Category.objects.get(slug=slug)
+	# products = Product.objects.filter(category=category)
+	context = {"categories" : categories, "category_title":category.title}
+	template = 'products/category.html'	
 	return render(request, template, context)
 
 
@@ -61,8 +61,34 @@ def single(request, slug):
 	except:
 		raise Http404
 
-def get_json(request, page):
+def products_json(request, page):
 	products = Product.objects.all()
+	data = {}
+	result = []
+	cnt = 0
+	for product in products:
+		result_item = {}
+		result_item['title'] = product.title
+		result_item['url'] = product.get_absolute_url()
+		result_item['price'] = str(product.price)
+		result_item['sales'] = str(product.sales)
+		for item in product.productimage_set.all():
+			if item.featured:
+				result_item['image'] = item.image.url;
+				scaled_height = 1.0 * item.image.height * settings.WATERFALL_IMAGE_FIXED_WIDTH / item.image.width
+				result_item['height'] = scaled_height
+				result_item['width'] = settings.WATERFALL_IMAGE_FIXED_WIDTH
+		if result_item.get('image') != None:
+			result.append(result_item)
+			cnt += 1
+	data['result'] = result
+	data['total'] = cnt
+	return HttpResponse(json.dumps(data), content_type = "application/json")
+
+def category_products_json(request, slug, page):
+	category = Category.objects.get(slug=slug)
+	print(category)
+	products = Product.objects.filter(category=category)
 	data = {}
 	result = []
 	cnt = 0

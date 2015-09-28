@@ -250,7 +250,7 @@ ul.cute li{
 	border: 1px solid #ddd;
 }
 .sub-cate{
-	width: 27%;
+	width: 310px;
 	margin: 2em 2em 0 0;
 }
 .banner-off{
@@ -263,11 +263,12 @@ ul.cute li{
 .shoes-grid{
 	width: 70%;
 	float: right;
+	margin-top: 2em;
 }
 .slide-grid{
 	width: 100%;
 	border: 1px solid #ddd;
-	margin: 2em 0;
+	margin-bottom: 2em;
 }
 .banner-off  h2{
 	padding:  0em;
@@ -294,6 +295,9 @@ ul.cute li{
 	margin: 0;
 	width: 90%;
 	padding: 0 0 2em;
+}
+.banner-off .get-now {
+	margin-top: 15px;
 }
  span.on-get{
 	font-size: 1.1em;
@@ -1721,4 +1725,30 @@ img.banner-bag {
 .img-left-arrow {
 	padding: 0 0 0 6.2em;
 }
+}
+
+
+/* back to top css */
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 30px;
+    background: #9C9C9C url('/media/icon/back2top-arrow.svg') no-repeat center 50%;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top.show {
+    opacity: 1;
+}
+#content {
+    height: 2000px;
 }

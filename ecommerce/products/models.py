@@ -13,7 +13,7 @@ class Category(models.Model):
 	active = models.BooleanField(default=True)
 
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.title
 
 # T-Shirt 1
@@ -35,7 +35,7 @@ class Product(models.Model):
 	active = models.BooleanField(default=True)
 	update_defaults = models.BooleanField(default=False)
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.title
 
 	class Meta:
@@ -56,7 +56,7 @@ class ProductImage(models.Model):
 	active = models.BooleanField(default=True)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.product.title
 
 
@@ -91,7 +91,7 @@ class Variation(models.Model):
 
 	objects = VariationManager()
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.title
 
 

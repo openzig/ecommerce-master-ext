@@ -40,7 +40,7 @@ try:
 except:
     pass
 
-SITE_URL = "http://cfestore.com"
+SITE_URL = "http://127.0.0.1:8000/"
  
 
 # Application definition
