@@ -50,7 +50,7 @@
 }
 
 .waterfall-container .sales_icon {
-	background-image: url('{{MEDIA_URL}}icon/sales1.png');
+	background-image: url('/media/icon/sales.png');
 	background-size: 100% 100%;
 	width: 18px;
 	height: 18px;
