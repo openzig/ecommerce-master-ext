@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'products.views.home', name='home'),
-    url(r'^s/$', 'products.views.search', name='search'),
+    url(r'^search$', 'products.views.search', name='search'),
     url(r'^category/(?P<slug>[\w-]+)/$', 'products.views.category', name='products'),
     url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),
     url(r'^cart/(?P<id>\d+)/$', 'carts.views.remove_from_cart', name='remove_from_cart'),
@@ -29,8 +29,8 @@ urlpatterns = patterns('',
     url(r'^accounts/address/add/$', 'accounts.views.add_user_address', name='add_user_address'),
     url(r'^accounts/activate/(?P<activation_key>\w+)/$', 'accounts.views.activation_view', name='activation_view'),
     
-    url(r'^products/json/page/(?P<page>\d+)/$', 'products.views.products_json', name='products_json'),
-    url(r'^category/(?P<slug>[\w-]+)/products/json/page/(?P<page>\d+)/$', 'products.views.category_products_json', name='products_json'),
+    url(r'^products/json/page/(?P<page>\d+)/$', 'products.views.products_json_by_category', {'slug': '*'}, name='products_json'),
+    url(r'^category/(?P<slug>[\w-]+)/products/json/page/(?P<page>\d+)/$', 'products.views.products_json_by_category', name='products_json_category'),
 ) 
 
 

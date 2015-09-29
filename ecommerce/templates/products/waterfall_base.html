@@ -36,46 +36,7 @@
 	</div>
 </div>
 {% if categories %}
-<div class="sub-cate">
-	<div class=" top-nav rsidebar span_1_of_left">
-		<h3 class="cate">
-			CATEGORIES
-		</h3>
-		<ul class="menu">
-			<li>
-				<ul class="kid-menu">
-					{% for category in categories %}
-					<li>
-						<a href="/category/{{category.slug}}/">
-							{{category.title}}
-						</a>
-					</li>
-					{% endfor %}
-				</ul>
-			</li>
-		</ul>
-	</div>
-	<!--initiate accordion-->
-	<script type="text/javascript">
-		$(function() {
-			var menu_ul = $('.menu > li > ul'),
-			menu_a = $('.menu > li > a');
-			menu_ul.hide();
-			menu_a.click(function(e) {
-				e.preventDefault();
-				if (!$(this).hasClass('active')) {
-					menu_a.removeClass('active');
-					menu_ul.filter(':visible').slideUp('normal');
-					$(this).addClass('active').next().stop(true, true).slideDown('normal');
-				} else {
-					$(this).removeClass('active');
-					$(this).next().stop(true, true).slideUp('normal');
-				}
-			});
-
-		});
-	</script>
-</div>
+{% include 'categorybar.html' %}
 {% endif %}
 </div>
 {% endblock %}
@@ -92,6 +53,17 @@ $('#container').waterfall({
     gutterWidth: 10,
     gutterHeight: 10,
     checkImagesLoaded: false,
+    maxPage: 100,
+    callbacks: {
+        loadingFinished: function($loading, isBeyondMaxPage) {
+            if ( !isBeyondMaxPage ) {
+                $loading.fadeOut();
+            } else {
+                $loading.hide();
+                $('#page-navigation').show();
+            }
+        }
+    },
     path: function(page) {
         return 'products/json/page/' + page + '/';
     }

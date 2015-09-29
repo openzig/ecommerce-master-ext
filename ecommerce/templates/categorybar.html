@@ -1,0 +1,21 @@
+<!-- category navbar -->
+<div class="sub-cate">
+	<div class=" top-nav rsidebar span_1_of_left">
+		<h3 class="cate">
+			CATEGORIES
+		</h3>
+		<ul class="menu">
+			<li>
+				<ul class="kid-menu">
+					{% for category in categories %}
+					<li>
+						<a href="/category/{{category.slug}}/">
+							{{category.title}}
+						</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
