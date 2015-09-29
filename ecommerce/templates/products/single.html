@@ -46,7 +46,24 @@
                 <div class="clearfix"></div>
             </div>
             <h6>100 items in stock</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <div class='col-sm-4 pull-right'>
+			 	 <form class='form' method='POST' action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
+			 	 <input class='btn btn-default btn-block' type='submit' value='Add to cart'/>
+			 	<input  class="form-control"  name='qty' type='number' value='1'/>
+			 	
+			 	{% if product.variation_set.all %}
+			 	{% for category in product.variation_set.categories %}
+			 		<select class='form-control' name='{{category.category}}'>
+			 			
+				 		{% for item in product.variation_set.get_values %}
+				 		<option value='{{ item|lower }}'>{{ item|capfirst }}</option>
+				 		{% endfor %}
+				 	</select>
+			 	{% endfor %}
+			 	{% endif %}
+
+			 </form>
+	 	</div>
             <div class="share">
                 <h5>Share Product :</h5>
                 <ul class="share_nav">

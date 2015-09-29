@@ -1,7 +1,10 @@
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_save
+# from django.db.models.signals import post_save
 # Create your models here.
+from django import template
+
+register = template.Library()
 
 class Category(models.Model):
 	title = models.CharField(max_length=120)
@@ -59,62 +62,33 @@ class ProductImage(models.Model):
 	def __str__(self):
 		return self.product.title
 
-
-
-
 class VariationManager(models.Manager):
 	def all(self):
 		return super(VariationManager, self).filter(active=True)
 
-	def sizes(self):
-		return self.all().filter(category='size')
+	def get_values(self):
+		var_items = self.all().filter(category=category)
+		variations = {'title':[], 'price':[]}
+		for var_item in var_items:
+			variations['title'].append(var_item.title)
+			variations['price'].append(var_item.price)
+		return variations
 
-	def colors(self):
-		return self.all().filter(category='color')
-
-
-VAR_CATEGORIES = (
-	('size', 'size'),
-	('color', 'color'),
-	('package', 'package'),
-	)
-
+	def categories(self):
+		print(self.all().values('category', 'title', 'price'))
+		return self.all().values('category').distinct()
 
 class Variation(models.Model):
 	product = models.ForeignKey(Product)
-	category = models.CharField(max_length=120, choices=VAR_CATEGORIES, default='size')
+	category = models.CharField(max_length=120)
 	title = models.CharField(max_length=120)
-	image = models.ForeignKey(ProductImage, null=True, blank=True)
+	# image = models.ForeignKey(ProductImage, null=True, blank=True)
 	price = models.DecimalField(max_digits=65, decimal_places=2, null=True, blank=True)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	active = models.BooleanField(default=True)
-
+	
 	objects = VariationManager()
 
 	def __str__(self):
 		return self.title
-
-
-
-
-def product_defaults(sender, instance, created, *args, **kwargs):
-	if instance.update_defaults:
-		categories = instance.category.all()
-		#print categories
-		for cat in categories:
-			#print cat.id
-			if cat.id == 1: #for t-shirts
-				small_size = Variation.objects.get_or_create(product=instance, 
-											category='size', 
-											title='Small')
-				medium_size = Variation.objects.get_or_create(product=instance, 
-											category='size', 
-											title='Medium')
-				large_size = Variation.objects.get_or_create(product=instance, 
-											category='size', 
-											title='Large')
-		instance.update_defaults = False
-		instance.save()
-	#print args, kwargs
-
-post_save.connect(product_defaults, sender=Product)
+	

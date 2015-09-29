@@ -7,6 +7,7 @@ from .models import Product, ProductImage, Category
 from django.http import HttpResponse
 from django.conf import settings
 import json
+from products.models import Variation
 
 def search(request):
 	try:
@@ -49,9 +50,7 @@ def single(request, slug):
 	try:
 		categories = Category.objects.all()
 		product = Product.objects.get(slug=slug)
-		#images = product.productimage_set.all()
 		images = ProductImage.objects.filter(product=product)
-		print(images)
 		context = {'product': product, "images": images, "categories" : categories}
 		template = 'products/single.html'	
 		return render(request, template, context)
