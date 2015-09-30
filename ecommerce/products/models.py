@@ -66,17 +66,20 @@ class VariationManager(models.Manager):
 	def all(self):
 		return super(VariationManager, self).filter(active=True)
 
-	def get_values(self):
-		var_items = self.all().filter(category=category)
-		variations = {'title':[], 'price':[]}
-		for var_item in var_items:
-			variations['title'].append(var_item.title)
-			variations['price'].append(var_item.price)
+	def get_variations(self):
+		category_set = self.all().values('category').distinct();
+		variations = []
+		for category_item in category_set:
+			variation = {}
+			variation['category'] = category_item['category']
+			variation['title'] = []
+			variation['price'] = []
+			values = self.all().filter(category=category_item['category'])
+			for value in values:
+				variation['title'].append(value.title)
+				variation['price'].append(value.price)
+			variations.append(variation)
 		return variations
-
-	def categories(self):
-		print(self.all().values('category', 'title', 'price'))
-		return self.all().values('category').distinct()
 
 class Variation(models.Model):
 	product = models.ForeignKey(Product)

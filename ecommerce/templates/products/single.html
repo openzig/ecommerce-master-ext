@@ -45,25 +45,21 @@
                 <a class="now-get get-cart-in" href="#">ADD TO CART</a>
                 <div class="clearfix"></div>
             </div>
-            <h6>100 items in stock</h6>
-            <div class='col-sm-4 pull-right'>
-			 	 <form class='form' method='POST' action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
-			 	 <input class='btn btn-default btn-block' type='submit' value='Add to cart'/>
-			 	<input  class="form-control"  name='qty' type='number' value='1'/>
-			 	
-			 	{% if product.variation_set.all %}
-			 	{% for category in product.variation_set.categories %}
-			 		<select class='form-control' name='{{category.category}}'>
-			 			
-				 		{% for item in product.variation_set.get_values %}
-				 		<option value='{{ item|lower }}'>{{ item|capfirst }}</option>
-				 		{% endfor %}
-				 	</select>
-			 	{% endfor %}
-			 	{% endif %}
-
-			 </form>
-	 	</div>
+            <div>
+			    <form class='form' method='POST' action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
+			        <input class='btn btn-default btn-block' type='submit' value='Add to cart' />
+			        <input class="form-control" name='qty' type='number' value='1' /> 
+			        
+			        {% if product.variation_set.all %} {% for variation in product.variation_set.get_variations %}
+			        <select class='form-control' name='{{variation.category}}'>
+			            {% for item in variation.title %}
+			            <option value='{{ item|lower }}'>{{ item|capfirst }}</option>
+			            {% endfor %}
+			        </select>
+			        {% endfor %} {% endif %}
+			
+			    </form>
+			</div>
             <div class="share">
                 <h5>Share Product :</h5>
                 <ul class="share_nav">
